@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {Link } from "react-router-dom";
+// import { isAuthenticated, logout } from "";
 
 
 //ICONS
@@ -26,6 +27,7 @@ export class UserBanner extends Component {
         <div className="user">
           <FontAwesomeIcon icon={faUserCircle} />
           {this.props.user.login ? (<><p className="mt-3" style={{color:"whitesmoke"}}>Hi, {this.props.user?.details.username}!</p> <FontAwesomeIcon icon={faChevronDown} /></>) :(<Link to="/login"><p className="mt-3" style={{color:"whitesmoke"}}>Login to see your account</p></Link>) }
+          {/* {isAuthenticated() ? (<><p className="mt-3" style={{color:"whitesmoke"}}>Hi, {this.props.user?.details.username}!</p> <FontAwesomeIcon icon={faChevronDown} /></>) :(<Link to="/login"><p className="mt-3" style={{color:"whitesmoke"}}>Login to see your account</p></Link>) } */}
           
         </div>
       </header>
