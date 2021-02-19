@@ -36,7 +36,7 @@ export class AlbumCard extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       //   <div className="row no-gutters d-flex">       <Col className="mb-2">
 

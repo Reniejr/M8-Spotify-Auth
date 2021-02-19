@@ -10,11 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./CSS/AlbumPage.css";
 import { Image, Table, Spinner, Row } from "react-bootstrap";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { selectedSong } from "../store/player/actions";
-import UserBanner from "./UserBanner"
-import {getAlbum} from "../api/index"
+import UserBanner from "./UserBanner";
+import { getAlbum } from "../api/index";
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
@@ -48,30 +48,10 @@ export class AlbumPage extends Component {
   };
   fetchAlbum = async () => {
     let albumID = this.props.match.params.id;
-    console.log(albumID);
-    try {
-      let response = await fetch(
-        "https://deezerdevs-deezer.p.rapidapi.com/album/" + albumID,
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key":
-              "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-          },
-        }
-      );
-      if (response.ok) {
-        let album = await response.json();
-        this.setState({
-          album: album,
-          loading: false,
-        });
-      } else {
-        this.setState({ loading: false, error: true });
-      }
-    } catch (error) {
-      console.log(error);
+    const result = await getAlbum(albumID);
+    if (result) {
+      this.setState({ album: result, loading: false });
+    } else {
       this.setState({ loading: false, error: true });
     }
   };
@@ -91,7 +71,7 @@ export class AlbumPage extends Component {
     const { album, loading } = this.state;
     return (
       <>
-      <UserBanner/>
+        <UserBanner />
         {loading ? (
           <Spinner animation="border" variant="white" size="lg" />
         ) : (
@@ -217,4 +197,6 @@ export class AlbumPage extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AlbumPage));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AlbumPage)
+);

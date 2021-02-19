@@ -20,9 +20,12 @@ import {
 } from "../store/user/action";
 import "./CSS/SideNavBar.css";
 
-const mapStateToProps = state => state;
+//UTILITIES
+import { getSearch } from "../api";
 
-const mapDispatchToProps = dispatch => ({
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
   isLoggedIn: () => dispatch(isLoggedIn()),
   handleLogout: () => dispatch(isLoggedIn()),
   createPlaylist: (name) => dispatch(createPlaylist(name)),
@@ -31,9 +34,11 @@ const mapDispatchToProps = dispatch => ({
 export class SideNavBar extends Component {
   state = { searchString: "", playlistName: "", inputPlaylist: false };
 
-  searchStringHandler = e => {
+  searchStringHandler = async (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
-      this.props.showSearchResult(this.state.searchString);
+      // this.props.showSearchResult(this.state.searchString);
+      let result = await getSearch(this.state.searchString);
+      // console.log(result);
     } else {
       this.setState({ searchString: e.currentTarget.value });
     }
