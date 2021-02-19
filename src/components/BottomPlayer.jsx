@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withRouter } from "react-router-dom";
 import {
   faChalkboard,
   faHeart,
@@ -37,10 +38,16 @@ export class BottomPlayer extends Component {
     // const isLiked = this.props.user.liked?.some(
     //   (song) => song.name === track.name
     // );
+    let path = this.props.location.pathname;
+    console.log(path);
     return (
       <Row
-        className="player d-flex justify-content-between px-2"
-        style={{ width: "100vw", position: "fixed" }}
+        className="player justify-content-between px-2"
+        style={{
+          width: "100vw",
+          position: "fixed",
+          display: path === "/login" || path === "/" ? "none" : "",
+        }}
       >
         <div className="player-albumart d-flex align-items-center justify-content-start">
           <div className="nowplaying-albumart mx-3">
@@ -129,4 +136,6 @@ export class BottomPlayer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomPlayer);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(BottomPlayer)
+);

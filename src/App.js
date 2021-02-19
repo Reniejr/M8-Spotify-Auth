@@ -40,8 +40,20 @@ class App extends React.Component {
           showSearchResult={this.showSearchResult}
           toggle={this.showModal}
         />
+        <BottomPlayer />
         <Switch>
           <Route path="/" exact render={(props) => <Login {...props} />} />
+          <Route
+            path="/home"
+            exact
+            render={(props) => (
+              <Home
+                {...props}
+                searchedAlbums={this.state.searchedAlbums}
+                searchedLoading={this.state.searchedLoading}
+              />
+            )}
+          />
           <Route
             path="/album/:id"
             render={(props) => (
@@ -63,21 +75,7 @@ class App extends React.Component {
             />
           )}
         /> */}
-          <Route
-            path={["/artist/:id/:name", "/home", "/album/:id"]}
-            component={BottomPlayer}
-          />
-          <Route
-            path="/home"
-            exact
-            render={(props) => (
-              <Home
-                {...props}
-                searchedAlbums={this.state.searchedAlbums}
-                searchedLoading={this.state.searchedLoading}
-              />
-            )}
-          />
+
           <Route
             path="/artist/:id/:name"
             render={(props) => (
