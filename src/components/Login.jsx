@@ -39,14 +39,15 @@ function Login() {
             <i className="fa fa-facebook"></i>
             <span>CONTINUE WITH FACEBOOK</span>
           </div>
-          <div className="login-button login-apple">
+          <a href ={`${process.env.REACT_APP_BE_URL}/spotifyLogin`}><div className="login-button login-apple">
             <i className="fa fa-apple"></i>
-            <span>CONTINUE WITH APPLE</span>
-          </div>
+            <span>CONTINUE WITH SPOTIFY</span>
+          </div></a>
+          <a href ={`${process.env.REACT_APP_BE_URL}/googleLogin`}>
           <div className="login-button login-google">
             <i className="fa fa-google"></i>
             <span>CONTINUE WITH GOOGLE</span>
-          </div>
+          </div> </a>
           <div className="d-flex flex-row">
             <hr />
             OR
