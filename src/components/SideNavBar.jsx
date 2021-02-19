@@ -64,7 +64,7 @@ export class SideNavBar extends Component {
       <>
         <div
           className="aside"
-          style={{ display: path === "/login" ? "none" : "" }}
+          style={{ display: path === "/login" || path === "/" ? "none" : "" }}
         >
           <div>
             <Link to="/home">

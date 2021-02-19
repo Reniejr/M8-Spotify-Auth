@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
 import BottomPlayer from "./components/BottomPlayer";
 import Home from "./components/Home";
@@ -34,27 +34,25 @@ class App extends React.Component {
     return (
       <Router className="App">
         <ModalPlaylist show={this.state.showModal} toggle={this.showModal} />
-        <Route
-          render={(props) => (
-            <SideNavBar
-              searchedAlbums={this.state.searchedAlbums}
-              searchedLoading={this.state.searchedLoading}
-              showSearchResult={this.showSearchResult}
-              toggle={this.showModal}
-            />
-          )}
+        <SideNavBar
+          searchedAlbums={this.state.searchedAlbums}
+          searchedLoading={this.state.searchedLoading}
+          showSearchResult={this.showSearchResult}
+          toggle={this.showModal}
         />
-        <Route
-          path="/album/:id"
-          render={(props) => (
-            <AlbumPage
-              {...props}
-              searchedAlbums={this.state.searchedAlbums}
-              searchedLoading={this.state.searchedLoading}
-            />
-          )}
-        />
-        {/* <Route
+        <Switch>
+          <Route path="/" exact render={(props) => <Login {...props} />} />
+          <Route
+            path="/album/:id"
+            render={(props) => (
+              <AlbumPage
+                {...props}
+                searchedAlbums={this.state.searchedAlbums}
+                searchedLoading={this.state.searchedLoading}
+              />
+            )}
+          />
+          {/* <Route
           path={["/artist/:id/:name", "/home", "/album/:id"]}
           render={props => (
             <SideNavBar
@@ -65,36 +63,37 @@ class App extends React.Component {
             />
           )}
         /> */}
-        <Route
-          path={["/artist/:id/:name", "/home", "/album/:id"]}
-          component={BottomPlayer}
-        />
-        <Route
-          path="/home"
-          exact
-          render={(props) => (
-            <Home
-              {...props}
-              searchedAlbums={this.state.searchedAlbums}
-              searchedLoading={this.state.searchedLoading}
-            />
-          )}
-        />
-        <Route
-          path="/artist/:id/:name"
-          render={(props) => (
-            <ArtistPage
-              {...props}
-              searchedAlbums={this.state.searchedAlbums}
-              searchedLoading={this.state.searchedLoading}
-            />
-          )}
-        />
-        <Route path="/login" exact render={(props) => <Login {...props} />} />
-        <Route
-          path="/liked-song/:userId"
-          render={(props) => <LikedSong {...props} />}
-        />
+          <Route
+            path={["/artist/:id/:name", "/home", "/album/:id"]}
+            component={BottomPlayer}
+          />
+          <Route
+            path="/home"
+            exact
+            render={(props) => (
+              <Home
+                {...props}
+                searchedAlbums={this.state.searchedAlbums}
+                searchedLoading={this.state.searchedLoading}
+              />
+            )}
+          />
+          <Route
+            path="/artist/:id/:name"
+            render={(props) => (
+              <ArtistPage
+                {...props}
+                searchedAlbums={this.state.searchedAlbums}
+                searchedLoading={this.state.searchedLoading}
+              />
+            )}
+          />
+          <Route path="/login" exact render={(props) => <Login {...props} />} />
+          <Route
+            path="/liked-song/:userId"
+            render={(props) => <LikedSong {...props} />}
+          />
+        </Switch>
       </Router>
     );
   }
