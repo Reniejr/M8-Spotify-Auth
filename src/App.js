@@ -22,7 +22,7 @@ class App extends React.Component {
   showSearchResult = async (searchString) => {
     this.setState({ searchedLoading: true });
     const musicAlbums = await getSearch(searchString);
-    this.setState({ searchedAlbums: musicAlbums });
+    this.setState({ searchedAlbums: musicAlbums.data });
     this.setState({ searchedLoading: false });
   };
 

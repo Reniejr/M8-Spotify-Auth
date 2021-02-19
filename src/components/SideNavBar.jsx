@@ -36,8 +36,8 @@ export class SideNavBar extends Component {
 
   searchStringHandler = async (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
-      // this.props.showSearchResult(this.state.searchString);
-      let result = await getSearch(this.state.searchString);
+      this.props.showSearchResult(this.state.searchString);
+      // let result = await getSearch(this.state.searchString);
       // console.log(result);
     } else {
       this.setState({ searchString: e.currentTarget.value });
