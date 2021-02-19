@@ -5,6 +5,9 @@ import "./CSS/Home.css";
 import Gallery from "./Gallery";
 import UserBanner from "./UserBanner";
 
+//UTILITIES IMPORTS
+import { getSearch } from "../api";
+
 //ICONS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -37,28 +40,22 @@ class Home extends Component {
   };
 
   fetchAlbums = async () => {
-    const response = await Promise.all(
-      this.state.urls.map(async (url) => {
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key":
-              "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-          },
-        });
-        return response.json();
-      })
-    );
+    let beyonce = await getSearch("beyonce");
+    let maxCooper = await getSearch("max%20cooper");
+    let cake = await getSearch("cake");
+
+    let beyonceAlbums = await beyonce.data;
+    let maxCooperAlbums = await maxCooper.data;
+    let cakeAlbums = await cake.data;
+
     setTimeout(() => {
       this.setState({
-        beyonceAlbums: response[0].data,
-        maxCooperAlbums: response[1].data,
-        cakeAlbums: response[2].data,
+        beyonceAlbums,
+        maxCooperAlbums,
+        cakeAlbums,
         loading: false,
       });
-    }, 750);
-    // console.log(response);
+    }, 500);
   };
 
   componentDidMount() {
